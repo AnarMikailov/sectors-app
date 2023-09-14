@@ -1,6 +1,6 @@
 import React from "react";
 import UserForm from "../components/UserForm";
-const Adduser = () => {
+const AddUser = () => {
   return (
     <>
       <UserForm />
@@ -8,4 +8,4 @@ const Adduser = () => {
   );
 };
 
-export default Adduser;
+export default AddUser;

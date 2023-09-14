@@ -1,20 +1,11 @@
 import React, { useState } from "react";
 import Select from "./Select";
+import { useSectorContext } from "../context/SectorsContext";
+import { Link } from "react-router-dom";
 
-const UserForm = ({ sectors }) => {
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const selectedSector = sectors.find(
-    (sector) => sector.category === selectedCategory
-  );
-
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
-  };
-
-  const categoryOptions = sectors.map((sector) => (
-    <option key={sector.value}>{sector.category}</option>
-  ));
-
+const UserForm = () => {
+  const { selectedCategory, handleCategoryChange, categoryOptions } =
+    useSectorContext();
   return (
     <>
       <input type="text" required placeholder="Your name" />
@@ -29,10 +20,12 @@ const UserForm = ({ sectors }) => {
           {categoryOptions}
         </select>
       </div>
-      {selectedCategory && <Select headings={selectedSector.headings} />}
-      <input type="checkbox" required name="Agree to terms" id="" />
+      {selectedCategory && <Select />}
+      <input type="checkbox" required />
       <span>Agree to terms</span>
-      <button type="submit">Save</button>
+      <Link to="/users">
+        <button>Save</button>
+      </Link>
     </>
   );
 };
