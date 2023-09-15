@@ -32,8 +32,6 @@ function App() {
   // console.log(sectors[1].headings);
   return (
     <div className="App">
-      {/* <AddUser sectors={sectors} /> */}
-
       <Routes>
         <Route path="/" element={<AddUser />} />
         <Route path="/succes" element={<Succes />} />

@@ -1,14 +1,49 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Select from "./Select";
 import { useSectorContext } from "../context/SectorsContext";
-import { Link } from "react-router-dom";
 
 const UserForm = () => {
-  const { selectedCategory, handleCategoryChange, categoryOptions } =
-    useSectorContext();
+  const {
+    selectedCategory,
+    handleCategoryChange,
+    categoryOptions,
+    handleInputChange,
+    addUser,
+    userInfo,
+    setUserInfo,
+    selectedSectorOptions,
+  } = useSectorContext();
+  const [isChecked, setIsChecked] = useState(false);
+  const navigateTo = useNavigate();
+  const checkCheckboxState = () => {
+    setIsChecked(!isChecked);
+  };
+  const handleSaveClick = () => {
+    if (
+      userInfo.name.trim() === "" ||
+      !selectedCategory ||
+      !selectedSectorOptions ||
+      !isChecked
+    )
+      return;
+    navigateTo("/users");
+    setUserInfo({
+      name: "",
+      id: "",
+      category: "",
+      sector_name: "",
+    });
+    addUser();
+  };
   return (
     <>
-      <input type="text" required placeholder="Your name" />
+      <input
+        onChange={handleInputChange}
+        type="text"
+        value={userInfo.name}
+        placeholder="Your name"
+      />
       <div>
         <label>Select a Category:</label>
         <select
@@ -21,11 +56,9 @@ const UserForm = () => {
         </select>
       </div>
       {selectedCategory && <Select />}
-      <input type="checkbox" required />
+      <input onChange={checkCheckboxState} type="checkbox" />
       <span>Agree to terms</span>
-      <Link to="/users">
-        <button>Save</button>
-      </Link>
+      <button onClick={handleSaveClick}>Save</button>
     </>
   );
 };
