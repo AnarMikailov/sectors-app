@@ -19,28 +19,35 @@ const UserItem = ({
     editedUserInfo,
     editedCategory,
     editedSectorOptions,
-    headingOptions,
-    selectedCategory,
+    editedheadingOptions,
+    setEditedUserInfo,
+    handleDeleteUser,
   } = useSectorContext();
 
   const handleEditClick = () => {
+    console.log(name, sector_name, category);
+    setEditedUserInfo({
+      name: name,
+      category: category,
+      sector_name: sector_name,
+    });
     toggleEditing(id);
   };
-  // Check if the name field, category, and checkbox are filled/selected
+
   const handleSaveClick = (id) => {
     if (
       editedUserInfo.name.trim() === "" ||
-      !editedCategory ||
-      !editedSectorOptions
-    )
+      editedUserInfo.category === "Select Category" ||
+      editedUserInfo.sector_name === "Select Heading"
+    ) {
+      // Display an error message or perform some action to inform the user that fields are empty or not properly selected
       return;
-    // addUser()
+    }
+
     handleEditUser(id);
     toggleEditing(id);
   };
-  // const filteredHeadingOptions = selectedCategory
-  //   ? headingOptions.filter((heading) => heading.props.id === selectedCategory)
-  //   : editedCategory;
+
   return (
     <>
       {isEditing ? (
@@ -51,13 +58,13 @@ const UserItem = ({
             type="text"
             required
             placeholder="Your name"
-            value={editedUserInfo.name} // Populate with user's current name
+            value={editedUserInfo.name}
           />
           <div>
             <label>Select a Category:</label>
             <select
               name="category"
-              value={editedCategory}
+              value={editedUserInfo.category}
               onChange={handleEditCategoryChange}
             >
               <option>Select Category</option>
@@ -67,36 +74,23 @@ const UserItem = ({
           <div>
             <label>Select a Heading:</label>
             <select
-              value={editedSectorOptions}
+              value={editedUserInfo.sector_name}
               onChange={handleEditSectorChange}
               name="sector_name"
             >
               <option>Select Heading</option>
-              {headingOptions.map((option) => (
-                <option key={option.props.value} value={option.props.value}>
-                  {option.props.children}
-                </option>
-              ))}
+              {editedheadingOptions}
             </select>
           </div>
           <button onClick={toggleEditing}>Cancel</button>
-          <button
-            onClick={() => {
-              handleSaveClick(id);
-            }}
-          >
-            Save Changes
-          </button>
+          <button onClick={() => handleSaveClick(id)}>Save Changes</button>
         </div>
       ) : (
         <div>
           <h3>Name</h3> <p>{name}</p>
           <h3>Category</h3> <p>{category}</p>
           <h3>Sector</h3> <p>{sector_name}</p>
-          <button
-            type="button"
-            // onClick={() => handleDeleteUser(id)}
-          >
+          <button type="button" onClick={() => handleDeleteUser(id)}>
             Delete
           </button>
           <button type="button" onClick={handleEditClick}>

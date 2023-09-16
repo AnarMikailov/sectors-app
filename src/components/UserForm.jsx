@@ -34,7 +34,7 @@ const UserForm = () => {
       category: "",
       sector_name: "",
     });
-    addUser();
+    // addUser();
   };
   return (
     <>

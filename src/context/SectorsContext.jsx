@@ -91,6 +91,15 @@ export const ContextProvider = ({ children }) => {
       {heading.label}
     </option>
   ));
+  const editedheadingOptions = editedCategory
+    ? sectors
+        .find((sector) => sector.category === editedCategory)
+        ?.headings.map((heading) => (
+          <option key={heading.value} id={heading.value}>
+            {heading.label}
+          </option>
+        ))
+    : null;
 
   //===============================================
   //Sending userInfo to Database
@@ -177,6 +186,8 @@ export const ContextProvider = ({ children }) => {
         editedUserInfo,
         editedCategory,
         editedSectorOptions,
+        editedheadingOptions,
+        setEditedUserInfo,
       }}
     >
       {children}
