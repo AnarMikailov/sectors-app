@@ -1,0 +1,89 @@
+.user-card {
+  background: var(--background);
+  color: var(--text-color);
+  border: 3px solid var(--subtle-shade);
+  padding: 20px;
+  margin: 10px;
+  border-radius: 5px;
+  width: 300px;
+  animation: pulsate 3s infinite; /* Apply the pulsating animation */
+}
+.user-card h3 {
+  color: var(--primary-color);
+  animation: animate__fadeIn 3s infinite;
+}
+.user-card p {
+  color: var(--text-color);
+}
+/* Card with a border */
+.user-card.border {
+  border: 2px solid var(--primary-color);
+}
+
+/* Card with a shadow */
+.user-card.shadow {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Card with a background color */
+.user-card.background {
+  background-color: var(--secondary-color);
+}
+
+/* Card with rounded corners */
+.user-card.rounded {
+  border-radius: 20px;
+}
+.button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: var(--primary-color); /* Blue */
+  color: var(--subtle-shade);
+  font-weight: 700;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1.5rem;
+}
+.user-card-container {
+  display: flex;
+}
+.user-input {
+  width: 93.5%;
+  background-color: antiquewhite;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid var(--text-color); /* Dark Gray */
+  border-radius: 4px;
+  font-size: 1rem;
+}
+.heading-select {
+  cursor: pointer;
+  background-color: antiquewhite;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--text-color); /* Dark Gray */
+  border-radius: 4px;
+  transition: border-color 0.3s ease; /* Add a transition effect to border-color */
+  margin-bottom: 1rem;
+}
+.user-card label {
+  color: var(--primary-color);
+}
+.button:hover {
+  transition: 1s all;
+  background-color: var(--hover-focus-color); /* Darker Blue */
+}
+@keyframes pulsate {
+  0% {
+    border-color: var(--primary-color);
+  }
+  50% {
+    border-color: var(--accent-color);
+  }
+  100% {
+    border-color: var(--primary-color);
+  }
+}

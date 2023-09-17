@@ -5,7 +5,7 @@ import { useSectorContext } from "./context/SectorsContext";
 // import { mockData } from "./data/mockdata";
 import Succes from "./pages/Succes";
 import Users from "./pages/Users";
-import AddUser from "./pages/Adduser";
+import AddUser from "./pages/AddUser";
 import { Route, Routes } from "react-router-dom";
 function App() {
   const { getSectors } = useSectorContext();

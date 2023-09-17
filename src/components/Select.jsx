@@ -1,18 +1,27 @@
 import React from "react";
 import { useSectorContext } from "../context/SectorsContext";
+import "./Select.css"; // Import your CSS file for additional styling
 
 const Select = () => {
-  const { headingOptions, handleSectorChange, selectedSectorOptions } =
-    useSectorContext();
+  const {
+    headingOptions,
+    handleSectorChange,
+    selectedSectorOptions,
+    userInfo,
+    isValid,
+  } = useSectorContext();
   return (
-    <div>
-      <label>Select a Heading:</label>
+    <div className="select-container">
+      <label className="select-label">Select a Sector*</label>
       <select
+        className={`select-input ${
+          !isValid && userInfo.sector_name === "" ? "error" : ""
+        }`}
         value={selectedSectorOptions}
         onChange={handleSectorChange}
         name="sector_name"
       >
-        <option>Select Heading</option>
+        <option value="">Select Heading</option>
         {headingOptions}
       </select>
     </div>

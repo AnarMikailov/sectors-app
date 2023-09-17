@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { mockData } from "../data/mockdata";
 import { db } from "../utils/firebase";
 import {
@@ -19,7 +20,8 @@ export const ContextProvider = ({ children }) => {
   const [selectedSectorOptions, setSelectedSectorOptions] = useState("");
   const [editedCategory, setEditedCategory] = useState("");
   const [editedSectorOptions, setEditedSectorOptions] = useState("");
-
+  const [isValid, setIsValid] = useState(true);
+  const [editinisValid, setEditinisValid] = useState(true);
   const [userInfo, setUserInfo] = useState({
     name: "",
     id: "",
@@ -34,7 +36,7 @@ export const ContextProvider = ({ children }) => {
   });
 
   const [userList, setUserList] = useState([]);
-
+  const [isChecked, setIsChecked] = useState(false);
   //=========================================================
   // Fetching all categories and sectors from databse
   //=========================================================
@@ -105,18 +107,55 @@ export const ContextProvider = ({ children }) => {
   //Sending userInfo to Database
   //===============================================
   const addUser = async () => {
-    await addDoc(userCollectionsRef, userInfo);
-    fecthUsers();
+    try {
+      await addDoc(userCollectionsRef, userInfo);
+      fecthUsers();
+
+      toast.success("User Successfully added!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } catch {
+      toast.error("Something went wrong!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
   };
   //=====================================
   //Taking currentUsers from databse
   //=====================================
   const fecthUsers = async () => {
-    const users = await getDocs(userCollectionsRef);
-    const fetchedUsers = [
-      ...users.docs.map((doc) => ({ ...doc.data(), id: doc.id })),
-    ];
-    setUserList(fetchedUsers);
+    try {
+      const users = await getDocs(userCollectionsRef);
+      const fetchedUsers = [
+        ...users.docs.map((doc) => ({ ...doc.data(), id: doc.id })),
+      ];
+      setUserList(fetchedUsers);
+    } catch (error) {
+      toast.error("Something went wrong!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
   };
 
   //================================
@@ -146,18 +185,44 @@ export const ContextProvider = ({ children }) => {
   };
 
   const handleEditUser = async (id) => {
-    const userDoc = doc(db, "users", id);
-    await updateDoc(userDoc, editedUserInfo);
-    fecthUsers();
+    try {
+      const userDoc = doc(db, "users", id);
+      await updateDoc(userDoc, editedUserInfo);
+      fecthUsers();
+    } catch {}
   };
 
   //===================================
   //Deleting Users
   //===================================
   const handleDeleteUser = async (id) => {
-    const userDoc = doc(db, "users", id);
-    await deleteDoc(userDoc);
-    fecthUsers();
+    try {
+      const userDoc = doc(db, "users", id);
+      await deleteDoc(userDoc);
+      await fecthUsers();
+      toast.success("User succeesfully deleted!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } catch (error) {
+      // Handle the error here, e.g., log it or show a user-friendly message
+      toast.error("Something went wrong!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
   };
 
   return (
@@ -173,6 +238,9 @@ export const ContextProvider = ({ children }) => {
         headingOptions,
         handleSectorChange,
         selectedSectorOptions,
+        setSelectedSectorOptions,
+        setEditedSectorOptions,
+        setSelectedCategory,
         handleInputChange,
         userInfo,
         setUserInfo,
@@ -188,6 +256,12 @@ export const ContextProvider = ({ children }) => {
         editedSectorOptions,
         editedheadingOptions,
         setEditedUserInfo,
+        isValid,
+        setIsValid,
+        isChecked,
+        setIsChecked,
+        editinisValid,
+        setEditinisValid,
       }}
     >
       {children}
