@@ -13,7 +13,7 @@ import {
 const SectorContext = createContext();
 
 export const ContextProvider = ({ children }) => {
-  // const sectorCollectionsRef = collection(db, "Sectors");
+  const sectorCollectionsRef = collection(db, "Sectors");
   const userCollectionsRef = collection(db, "users");
   const [sectors, setSectors] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -37,23 +37,45 @@ export const ContextProvider = ({ children }) => {
 
   const [userList, setUserList] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
+
+  const notifySucces = () => {
+    toast.success("User Successfully added!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+  const notifyError = () => {
+    toast.error("Something went wrong!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
   //=========================================================
   // Fetching all categories and sectors from databse
   //=========================================================
   const getSectors = async () => {
-    // const data = await getDocs(sectorCollectionsRef);
-    // const fetchedSectros = [
-    //   ...data.docs.map((doc) => ({ ...doc.data(), id: doc.id })),
-    // ];
-    // setSectors(fetchedSectros[0].sectors);
-    // console.log(fetchedSectros[0].sectors);
-    // console.log(mockData);
-    // console.log(sectors);
-    setSectors(mockData);
-    // console.log(
-    //   sectors.headings.map((heading) => console.log(heading.sector_name))
-    // );
-    // console.log(sectors)
+    try {
+      const data = await getDocs(sectorCollectionsRef);
+      const fetchedSectros = [
+        ...data.docs.map((doc) => ({ ...doc.data(), id: doc.id })),
+      ];
+      setSectors(fetchedSectros[0].sectors);
+      // setSectors(mockData);
+    } catch {
+      notifyError();
+    }
   };
 
   //=========================================
@@ -111,27 +133,9 @@ export const ContextProvider = ({ children }) => {
       await addDoc(userCollectionsRef, userInfo);
       fecthUsers();
 
-      toast.success("User Successfully added!", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      notifySucces();
     } catch {
-      toast.error("Something went wrong!", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      notifyError();
     }
   };
   //=====================================
@@ -145,16 +149,7 @@ export const ContextProvider = ({ children }) => {
       ];
       setUserList(fetchedUsers);
     } catch (error) {
-      toast.error("Something went wrong!", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      notifyError();
     }
   };
 
@@ -200,7 +195,7 @@ export const ContextProvider = ({ children }) => {
       const userDoc = doc(db, "users", id);
       await deleteDoc(userDoc);
       await fecthUsers();
-      toast.success("User succeesfully deleted!", {
+      toast.success("User Successfully deleted!", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -212,16 +207,7 @@ export const ContextProvider = ({ children }) => {
       });
     } catch (error) {
       // Handle the error here, e.g., log it or show a user-friendly message
-      toast.error("Something went wrong!", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      notifyError();
     }
   };
 
@@ -262,6 +248,8 @@ export const ContextProvider = ({ children }) => {
         setIsChecked,
         editinisValid,
         setEditinisValid,
+        notifySucces,
+        notifyError,
       }}
     >
       {children}

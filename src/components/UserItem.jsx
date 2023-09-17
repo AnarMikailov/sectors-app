@@ -25,19 +25,12 @@ const UserItem = ({
     handleDeleteUser,
     editinisValid,
     setEditinisValid,
+    notifySucces,
+    notifyError,
   } = useSectorContext();
   const notify = () => {
     setEditinisValid(false);
-    toast.error("Please fill  all required fields!", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
+    notifyError();
   };
   const handleEditClick = () => {
     setEditedUserInfo({
