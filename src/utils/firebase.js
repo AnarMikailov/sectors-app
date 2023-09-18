@@ -1,14 +1,15 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "@firebase/firestore";
 const firebaseConfig = {
-  apiKey: "AIzaSyBdkAmnUXLpg519HlhX1u5W7bwlI1XOoQE",
-  authDomain: "spa-choosing-sectors.firebaseapp.com",
-  databaseURL: "https://spa-choosing-sectors-default-rtdb.firebaseio.com",
-  projectId: "spa-choosing-sectors",
-  storageBucket: "spa-choosing-sectors.appspot.com",
-  messagingSenderId: "761903541484",
-  appId: "1:761903541484:web:f6ac08fd814b8a60bbc9c9",
-  measurementId: "G-XEPSJEY99K",
+  apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env
+    .VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_REACT_APP_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase

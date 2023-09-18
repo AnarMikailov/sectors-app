@@ -30,7 +30,16 @@ const UserItem = ({
   } = useSectorContext();
   const notify = () => {
     setEditinisValid(false);
-    notifyError();
+    toast.error("Please fill all required fields!", {
+      position: "bottom-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
   };
   const handleEditClick = () => {
     setEditedUserInfo({
@@ -53,8 +62,8 @@ const UserItem = ({
       handleEditUser(id);
       toggleEditing(id);
 
-      toast.success("User Successfully updated!", {
-        position: "top-center",
+      toast.success("User Successfully edited!", {
+        position: "bottom-center",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -67,7 +76,7 @@ const UserItem = ({
   };
 
   return (
-    <div className="user-card">
+    <div className="user-card fade-in-bottom">
       {isEditing ? (
         <div>
           <label>Name:</label>

@@ -19,7 +19,7 @@
   padding: 10px;
   border: 1px solid var(--text-color); /* Dark Gray */
   border-radius: 4px;
-  transition: border-color 0.3s ease; /* Add a transition effect to border-color */
+  transition: border-color 0.3s ease;
 }
 option {
   cursor: pointer;

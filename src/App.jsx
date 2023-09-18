@@ -3,7 +3,6 @@ import { useSectorContext } from "./context/SectorsContext";
 // import { db } from "./utils/firebase";
 // import { collection, getDocs } from "firebase/firestore";
 // import { mockData } from "./data/mockdata";
-import Succes from "./pages/Succes";
 import Users from "./pages/Users";
 import AddUser from "./pages/AddUser";
 import { Route, Routes } from "react-router-dom";
@@ -34,7 +33,6 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<AddUser />} />
-        <Route path="/succes" element={<Succes />} />
         <Route path="/users" element={<Users />} />
       </Routes>
     </div>

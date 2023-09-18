@@ -1,6 +1,6 @@
 import React from "react";
 import { useSectorContext } from "../context/SectorsContext";
-import "./Select.css"; // Import your CSS file for additional styling
+import "./Select.css";
 
 const Select = () => {
   const {

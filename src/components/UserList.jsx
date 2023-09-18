@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import UserItem from "./UserItem";
@@ -13,8 +13,12 @@ const UserList = () => {
     setSelectedCategory,
     setSelectedSectorOptions,
     setIsChecked,
+    fecthUsers,
   } = useSectorContext();
   const [editingItemId, setEditingItemId] = useState(null);
+  useEffect(() => {
+    fecthUsers();
+  }, []);
 
   // Function to toggle editing for a specific item
   const toggleEditing = (itemId) => {
@@ -38,7 +42,6 @@ const UserList = () => {
   return (
     <div className="userlist-container">
       <button onClick={handleAddUser} className="button-add-user">
-        {" "}
         Add User
       </button>
       <div className="user-container">

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "./Select";
 import { useSectorContext } from "../context/SectorsContext";
-import "../components/UserForm.css"; // Import your CSS file for additional styling
+import "../components/UserForm.css";
 
 const UserForm = ({ notify }) => {
   const navigateTo = useNavigate();
@@ -13,10 +13,8 @@ const UserForm = ({ notify }) => {
     handleInputChange,
     addUser,
     userInfo,
-    setUserInfo,
     selectedSectorOptions,
     isValid,
-    setIsValid,
     isChecked,
     setIsChecked,
   } = useSectorContext();
@@ -41,7 +39,7 @@ const UserForm = ({ notify }) => {
   };
 
   return (
-    <div className="user-form-container">
+    <div className="user-form-container fade-in">
       <h2>User Form</h2>
       <div className="form">
         <label> Your Name*</label>

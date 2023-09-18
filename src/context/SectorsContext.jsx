@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { mockData } from "../data/mockdata";
 import { db } from "../utils/firebase";
 import {
   collection,
@@ -40,7 +39,7 @@ export const ContextProvider = ({ children }) => {
 
   const notifySucces = () => {
     toast.success("User Successfully added!", {
-      position: "top-center",
+      position: "bottom-center",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -52,7 +51,7 @@ export const ContextProvider = ({ children }) => {
   };
   const notifyError = () => {
     toast.error("Something went wrong!", {
-      position: "top-center",
+      position: "bottom-center",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -184,7 +183,9 @@ export const ContextProvider = ({ children }) => {
       const userDoc = doc(db, "users", id);
       await updateDoc(userDoc, editedUserInfo);
       fecthUsers();
-    } catch {}
+    } catch {
+      notifyError();
+    }
   };
 
   //===================================
@@ -196,7 +197,7 @@ export const ContextProvider = ({ children }) => {
       await deleteDoc(userDoc);
       await fecthUsers();
       toast.success("User Successfully deleted!", {
-        position: "top-center",
+        position: "bottom-center",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -206,7 +207,6 @@ export const ContextProvider = ({ children }) => {
         theme: "dark",
       });
     } catch (error) {
-      // Handle the error here, e.g., log it or show a user-friendly message
       notifyError();
     }
   };
@@ -250,6 +250,7 @@ export const ContextProvider = ({ children }) => {
         setEditinisValid,
         notifySucces,
         notifyError,
+        fecthUsers,
       }}
     >
       {children}

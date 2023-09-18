@@ -9,7 +9,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  animation: pulsate 3s infinite; /* Apply the pulsating animation */
+  animation: pulsate 3s infinite,
+    fade-in 3s cubic-bezier(0.39, 0.575, 0.565, 1) both;
   opacity: 0.9;
 }
 
@@ -48,8 +49,9 @@
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid var(--text-color); /* Dark Gray */
+  border: 1px solid var(--text-color);
   border-radius: 4px;
+  height: 40px;
 }
 
 /* Checkbox Styles */
@@ -129,11 +131,25 @@ input[type="checkbox"] {
   }
 }
 .error {
-  /* background: red; */
   border: 3px solid red;
 }
 .error-bottom {
-  /* background: red; */
-  /* border-bottom: 3px solid red; */
   border-bottom: 3px solid red;
+}
+
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
