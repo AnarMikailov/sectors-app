@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSectorContext } from "../context/SectorsContext";
 import { Link } from "react-router-dom";
-import "../components/userItem.css"; // Import your CSS file for additional styling
+import "../components/UserItem.css"; // Import your CSS file for additional styling
 import toast, { Toaster } from "react-hot-toast";
 const UserItem = ({
   name,
